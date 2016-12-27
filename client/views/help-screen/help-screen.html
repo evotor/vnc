@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Help Screen</title>
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="help-screen.js"></script>
+	<link rel="stylesheet" href="builded/help-screen.css">
+</head>
+<body>
+
+	<div id="preload" class="view preload show">
+		<img class="loading" src="assets/loading.gif">
+		<p>Проверка соединения...</p>
+	</div>
+
+	<div id="preload_error" class=" view preload_error">
+		<img src="assets/no connection.svg">
+		<p>Проверьте соединение с интернетом и нажмите кнопку «Повторить».</p>
+		<button id="preload_error_resend">Повторить</button>
+	</div>
+
+	<div id="form" class="view form">
+		<p class=h1>Введите адрес эл. почты помощника</p>
+		<form id="submit_form">
+			<div class="form-group">
+				<input name="email" id="email" placeholder="Введите Email" type="text">
+				<p class="base-text under-input-field mini show">На этот адрес мы отправим ссылку для удаленного доступа к вашей кассе.</p>
+				<p class="under-input-field mini error" id="no_connection">Проверьте соединение с интернетом и повторите запрос.</p>
+				<p class="under-input-field mini error" id="wrong_email">Введите корректный адрес эл. почты</p>
+			</div>
+			<div class="form-group">
+				<button id="form_button" class="send full">Запросить помощь</button>
+			</div>
+		</form>
+	</div>
+
+	<div id="success" class="view success">
+		<img src="assets/success.svg">
+		<p class="h1">Ссылка для удаленного доступа отправлена</p>
+		<p class="mini">Получатель откроет ссылку на компьютере и сможет удаленно управлять вашим терминалом.</p>
+		<button id="success_close" class="mini-button">ОК</button>
+	</div>
+	
+</body>
+</html>
