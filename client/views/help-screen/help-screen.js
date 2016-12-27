@@ -64,15 +64,15 @@ var storage = new Storage();
 				// 	result : 0
 				// };
 
-				if (response.email || response.result == 59) {
-					variables.default_values.email = response.email;
+				if (jsonObject.email || jsonObject.result == 59) {
+					variables.default_values.email = jsonObject.email;
 					variables.default_values.email = variables.default_values.email || storage.get('vnc_help_email');
 
 					methods.changeToView(variables.screens.form, () => {
 						$(variables.form_field.email).val(variables.default_values.email);
 					});
 
-				} else if (response.result) {
+				} else if (jsonObject.result) {
 					methods.changeToView(variables.screens.preload_error);
 				}
 
@@ -111,7 +111,6 @@ var storage = new Storage();
 				    	email : email
 				    }
 				});
-				log.log("POST remote/cto-help response " + response);
 				
 					// response = {
 					// 	result : 0
@@ -124,8 +123,10 @@ var storage = new Storage();
 					} else {
 
 						var jsonObject = JSON.parse(response);
+						
+						log.log("POST remote/cto-help response " + jsonObject);
 
-						if (!response.result) {
+						if (!jsonObject.result) {
 							storage.set('vnc_help_email', email);
 							methods.changeToView(variables.screens.success, () => {
 
