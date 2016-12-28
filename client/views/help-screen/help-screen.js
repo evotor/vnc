@@ -56,7 +56,7 @@
 						variables.default_values.email = jsonObject.email;
 						variables.default_values.email = variables.default_values.email || storage.get('vnc_help_email');
 
-						methods.changeToView(variables.screens.form, () => {
+						methods.changeToView(variables.screens.form, function() {
 							$(variables.form_field.email).val(variables.default_values.email);
 						});
 
@@ -116,12 +116,12 @@
 
 							if (!jsonObject.result) {
 								storage.set('vnc_help_email', email);
-								methods.changeToView(variables.screens.success, () => {
+								methods.changeToView(variables.screens.success, function () {
 
-									setTimeout(() => {
+									setTimeout(function() {
 										navigation.pushNext();
 									}, 5000);
-								});		
+								});
 
 							} else {
 								
@@ -138,7 +138,7 @@
 					$(variables.form_errors[type]).addClass('show');
 					$('form .base-text').removeClass('show');
 
-					setTimeout(() => {
+					setTimeout(function () {
 						$(variables.form_field.email).removeClass('invalid');
 						$(variables.form_errors[type]).removeClass('show');
 						$('form .base-text').addClass('show');
@@ -148,19 +148,19 @@
 				}
 			},
 			setHandlers : function() {
-				$(document).on('click', variables.buttons.preload_error_resend, (event) => {
-					methods.changeToView(variables.screens.preload, () => {
-						this.preload();
+				$(document).on('click', variables.buttons.preload_error_resend, function(event) {
+					methods.changeToView(variables.screens.preload, function () {
+						methods.preload();
 					});
 				});
 
-				$(document).on('click', variables.buttons.success_close, (event) => {
+				$(document).on('click', variables.buttons.success_close, function(event) {
 					navigation.pushNext();
 				});
 
-				$(document).on('submit', variables.forms.submit_form, (event) => {
+				$(document).on('submit', variables.forms.submit_form, function(event) {
 					event.preventDefault();
-					this.sendForm(event);
+					methods.sendForm(event);
 				});
 			}
 		}
