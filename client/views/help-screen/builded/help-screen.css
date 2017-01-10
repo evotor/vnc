@@ -1,6 +1,6 @@
 html {
-  font-family: 'Roboto', 'Arial', sans-serif;
-  zoom: 1.5; }
+  font-family: 'Roboto', 'Arial', sans-serif; 
+zoom : 0.75;}
 
 html, body {
   padding: 0;
@@ -37,8 +37,12 @@ p {
   padding: 48px; }
   .view.show {
     display: block; }
-  .view#preload, .view#preload_error {
-    padding-top: 200px; }
+  .view#preload {
+    padding-top: 150px;
+  }
+  .view#preload_error {
+    padding-top: 110px; 
+  }
     .view#preload img, .view#preload_error img {
       margin-bottom: 10px; }
   .view#form {

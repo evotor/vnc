@@ -1,9 +1,10 @@
-version: 1
-versionName: "1.0.2"
+version: 2
+versionName: "1.0.3"
 
-packageName: vnc
-appName: "VNC"
+packageName: remoteHelp
+appName: "Запросить помощь"
 appUUID: "919b31d4-84e2-436f-a780-57b61e2e1acf"
+iconColor: "#546E7A"
 
 capabilities:
   - navigation
@@ -11,10 +12,23 @@ capabilities:
   - http
   
 views:
-  - name: help-screen
+  - name: launcher
     header: "Запросить помощь"
     source: client/views/help-screen/help-screen.html
     scripts: # список скриптов которые должны быть подключены
       - help-screen.js
     styles: # список стилей которые должны быть подключены
       - "*.css" # может подключить все файлы
+
+daemons:
+  - name: suggestion
+    events:
+    - null
+    behavior: suggestion-daemon.js
+
+plugins:
+  - name: suggestion
+    moments:
+    - null
+    point: before
+    behavior: before-receipt-fixed.js

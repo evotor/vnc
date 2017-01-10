@@ -37,50 +37,59 @@
 			},
 			preload : function () {
 
-				// setTimeout(() => {
+				// setTimeout(function() {
 
-					var response = http.send({
+					var response = http.send(JSON.stringify({
 					    method : "POST",
 					    path : "remote/cto-get-email",
 					    body : {}
-					});
-					var jsonObject = JSON.parse(response);
-					log.log("POST remote/cto-get-email response " + response);
-					// 
-					// jsonObject = {
-					// 	email : 'priwlo@yra.ru',
-					// 	result : 0
-					// };
+					}));
 
-					if (jsonObject.email || jsonObject.result == 59) {
-						variables.default_values.email = jsonObject.email;
-						variables.default_values.email = variables.default_values.email || storage.get('vnc_help_email');
-
-						methods.changeToView(variables.screens.form, function() {
-							$(variables.form_field.email).val(variables.default_values.email);
-						});
-
-					} else if (jsonObject.result) {
+					if (!response) {
 						methods.changeToView(variables.screens.preload_error);
+					} else {
+						// logger.log("POST remote/cto-get-email response " + response);
+						var jsonObject = JSON.parse(response);
+						
+						// jsonObject = {
+						// 	body : {
+						// 		email : 'priwlo@yra.ru',
+						// 		result : 0
+						// 	}
+						// };
+
+						if (jsonObject.body.email || jsonObject.body.result == 59) {
+							variables.default_values.email = jsonObject.body.email;
+							variables.default_values.email = variables.default_values.email || storage.get('vnc_help_email');
+
+							methods.changeToView(variables.screens.form, function() {
+								$(variables.form_field.email).val(variables.default_values.email);
+							});
+
+						} else if (jsonObject.body.result) {
+							methods.changeToView(variables.screens.preload_error);
+						}
 					}
+
 
 				// }, 500);
 			},
 			changeToView : function (view, cb) {
-				console.log('changeToView', view);
-				if (variables.currentScreen) {
-					$(variables.currentScreen).removeClass('show');
-				}
-				variables.currentScreen = view;
-				$(view).addClass('show');
+				setTimeout(function() {
+					if (variables.currentScreen) {
+						$(variables.currentScreen).removeClass('show');
+					}
+					variables.currentScreen = view;
+					$(view).addClass('show');
 
-				cb && cb();
+					cb && cb();
+				}, 500);
 			},
 			sendForm : function() {
 				var formValue = $(variables.forms.submit_form).serializeArray()
 				console.log(formValue);
 
-				let email = formValue[0].value;
+				var email = formValue[0].value;
 
 				console.log(email);
 
@@ -90,19 +99,20 @@
 
 				} else {
 
-					// setTimeout(() => {
+					// setTimeout(function () {
 
-					var response = http.send({
+					var response = http.send(JSON.stringify({
 					    method : "POST",
 					    path : "remote/cto-help",
 					    body: {
 					    	email : email
 					    }
-					});
+					}));
 					
 						// response = {
 						// 	result : 0
 						// }
+						// jsonObject = response;
 
 						if (!response) {
 
@@ -112,9 +122,9 @@
 
 							var jsonObject = JSON.parse(response);
 							
-							log.log("POST remote/cto-help response " + jsonObject);
+							//log.log("POST remote/cto-help response " + jsonObject);
 
-							if (!jsonObject.result) {
+							if (!jsonObject.body.result) {
 								storage.set('vnc_help_email', email);
 								methods.changeToView(variables.screens.success, function () {
 
@@ -168,7 +178,8 @@
 		methods.init();
 
 	} catch (err) {
-		console.log('error', err);
+		alert(err);
+		//navigation.pushNext();
 	}
 
 })();
