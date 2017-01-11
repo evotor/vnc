@@ -1,6 +1,6 @@
 html {
-  font-family: 'Roboto', 'Arial', sans-serif; 
-zoom : 0.75;}
+  font-family: 'Roboto', 'Arial', sans-serif;
+  zoom: 1.5; }
 
 html, body {
   padding: 0;
@@ -37,12 +37,8 @@ p {
   padding: 48px; }
   .view.show {
     display: block; }
-  .view#preload {
-    padding-top: 150px;
-  }
-  .view#preload_error {
-    padding-top: 110px; 
-  }
+  .view#preload, .view#preload_error {
+    padding-top: 200px; }
     .view#preload img, .view#preload_error img {
       margin-bottom: 10px; }
   .view#form {
@@ -72,7 +68,10 @@ p {
     text-transform: uppercase;
     letter-spacing: 1.4px;
     border-radius: 50px;
-    cursor: pointer; }
+    cursor: pointer;
+    transition: opacity .2s; }
+    .view button[disabled] {
+      opacity: 0.5; }
     .view button.full {
       width: 100%; }
     .view button.mini-button {

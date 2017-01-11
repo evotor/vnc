@@ -50,7 +50,7 @@
 					} else {
 						// logger.log("POST remote/cto-get-email response " + response);
 						var jsonObject = JSON.parse(response);
-						
+
 						// jsonObject = {
 						// 	body : {
 						// 		email : 'priwlo@yra.ru',
@@ -94,10 +94,12 @@
 				console.log(email);
 
 				if (!email || !email.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/gi)) {
-					
+
 					initError('wrong_email');
 
 				} else {
+
+					$(variables.buttons.form_button).attr('disabled', true);
 
 					// setTimeout(function () {
 
@@ -108,11 +110,15 @@
 					    	email : email
 					    }
 					}));
-					
+
+					setTimeout(function() {
+						$(variables.buttons.form_button).removeAttr('disabled');
+					}, 500);
+
 						// response = {
-						// 	result : 0
+						// 	result : 59
 						// }
-						// jsonObject = response;
+						// jsonObject = { body : response };
 
 						if (!response) {
 
@@ -121,7 +127,6 @@
 						} else {
 
 							var jsonObject = JSON.parse(response);
-							
 							//log.log("POST remote/cto-help response " + jsonObject);
 
 							if (!jsonObject.body.result) {
@@ -134,13 +139,13 @@
 								});
 
 							} else {
-								
+
 								initError('no_connection');
 
 							}
 						}
 
-					// }, 500);
+					// }, 1500);
 				}
 
 				function initError(type) {
@@ -181,5 +186,5 @@
 		alert(err);
 		//navigation.pushNext();
 	}
-
+	
 })();

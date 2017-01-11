@@ -84,6 +84,10 @@ p {
 		letter-spacing: 1.4px;
 		border-radius: 50px;
 		cursor: pointer;
+		transition: opacity .2s;
+		&[disabled] {
+			opacity: 0.5;
+		}
 		&.full {
 			width: 100%;
 		}
